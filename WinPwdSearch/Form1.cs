@@ -148,5 +148,35 @@ namespace WinPwdSearch
             }
             return sb.ToString();
         } //비밀번호 난수 생성
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            MemberDB db = new MemberDB();
+            DataTable dt = db.GetCodeListByCategory("SCHOOL");
+
+            DataRow dr = dt.NewRow();//데이터 행을 새로 만듬
+            dr["Code"] = "";
+            dr["CodeName"] = "선택";
+            dt.Rows.InsertAt(dr, 0); //제일 위로 감
+            //dt.Rows.Add(dr); // 제일 아래로 들어감
+            dt.AcceptChanges(); //커밋하겠다.
+
+            //Code, CodeName
+            
+            comboBox1.DisplayMember = "CodeName"; //눈에 보였으면 좋겠는것
+            comboBox1.ValueMember = "Code"; //값을 가지고 있으면 좋을것
+            comboBox1.DataSource = dt;
+
+            //comboBox1.SelectedIndex = -1; 처음에 아무것도 안보이게
+
+        }
+
+        private void linkLabel2_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            string schCode = comboBox1.SelectedValue.ToString();
+            string schName = comboBox1.Text;
+
+            MessageBox.Show(schCode + "/" + schName);
+        }
     }
 }

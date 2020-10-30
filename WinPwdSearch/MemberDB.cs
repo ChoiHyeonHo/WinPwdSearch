@@ -112,7 +112,23 @@ namespace WinPwdSearch
             }      
         }
 
+        public DataTable GetCodeListByCategory(string category)
+        {
+            DataTable dt = new DataTable();
+            MySqlDataAdapter da = new MySqlDataAdapter();
 
+            MySqlCommand cmd = new MySqlCommand();
+            cmd.CommandText = "select Code, CodeName from new_table where category = @category order by Code;";
+            cmd.Connection = conn;
+            cmd.Parameters.Add("@category", MySqlDbType.VarChar);
+            cmd.Parameters["@category"].Value = category;
+
+            da.SelectCommand = cmd;
+
+            da.Fill(dt);
+            return dt;
+
+        }
 
         public void Dispose()
         {
