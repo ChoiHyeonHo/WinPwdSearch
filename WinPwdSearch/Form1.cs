@@ -114,12 +114,14 @@ namespace WinPwdSearch
 
 
                 MailAddress mailTo = new MailAddress(email);
-                MailAddress mailFrom = new MailAddress("admin@gudi.co.kr");
+                MailAddress mailFrom = new MailAddress("hyeonho5304@gmail.com");
                 MailMessage message = new MailMessage(mailFrom, mailTo);
                 message.Subject = $"{name}님의 비밀번호 초기화 안내 메일입니다.";
                 message.Body = $"{name}, 당신의 비밀번호. {newPwd}로 대체되었다.";
                 message.BodyEncoding = Encoding.UTF8;
                 message.SubjectEncoding = Encoding.UTF8;
+
+                client.Send(message);
 
                 return true;
             }
